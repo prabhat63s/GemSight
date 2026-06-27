@@ -1,5 +1,6 @@
 # 💎 AI Jewellery Analysis System
 
+
 A premium, expert-level jewellery appraisal and metadata generation platform powered by advanced AI. This system provides instant visual intelligence for high-resolution jewellery images, thinking like a senior showroom merchandiser.
 
 
