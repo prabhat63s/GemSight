@@ -5,7 +5,7 @@ import ImageInput from "./ImageInput"
 import Spinner from "./Spinner"
 import AnalysisResult from "./AnalysisResult"
 import CameraModal from "./CameraModal"
-import { FaMagic, FaDownload, FaImage, FaArrowLeft, FaHistory, FaCamera } from "react-icons/fa"
+import { FaDownload, FaImage, FaArrowLeft, FaHistory, FaCamera, FaGem } from "react-icons/fa"
 
 interface HistoryItem {
     id: string
@@ -45,7 +45,7 @@ export default function Analyzer({ onBack }: { onBack?: () => void }) {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `Jewellery-Analysis-${Date.now()}.pdf`;
+            a.download = `GemSight-Report-${Date.now()}.pdf`;
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);
@@ -115,52 +115,50 @@ export default function Analyzer({ onBack }: { onBack?: () => void }) {
     }
 
     return (
-        <div className="min-h-screen w-full bg-mesh py-12 px-4 md:px-8 lg:px-12">
-            <div className="mx-auto max-w-8xl">
+        <div className="mx-auto w-full max-w-7xl px-6 py-10 md:py-14">
+            <div>
                 {/* Back Button */}
                 {onBack && (
                     <button
                         onClick={onBack}
-                        className="mb-8 flex items-center gap-2 text-sm font-medium text-zinc-500 hover:text-white transition-colors animate-fade-in"
+                        className="mb-6 flex items-center gap-2 text-sm text-muted hover:text-ink transition-colors cursor-pointer"
                     >
-                        <FaArrowLeft className="text-xs" /> Back to Home
+                        <FaArrowLeft className="text-xs" /> Back to home
                     </button>
                 )}
 
                 {/* Header Section */}
-                <header className="mb-16 text-center animate-fade-in">
-                    <h1 className="text-4xl font-bold gradient-text md:text-6xl lg:text-7xl tracking-tight">
-                        Jewellery Intelligence
+                <header className="mb-10 animate-fade-in">
+                    <h1 className="font-serif text-4xl tracking-tight md:text-5xl">
+                        New appraisal
                     </h1>
-                    <p className="mt-6 text-zinc-400 text-lg max-w-2xl mx-auto">
-                        Upload your high-resolution jewellery images for instant, expert-level metadata generation and market analysis.
+                    <p className="mt-3 text-muted max-w-2xl">
+                        Upload a clear photo of the piece, or capture one with your camera, to get an expert-level analysis and a certificate-ready report.
                     </p>
                 </header>
 
-                <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
                     {/* Left Column: Controls & History (4 cols) */}
-                    <div className="lg:col-span-4 space-y-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-                        <section className="glass rounded-2xl p-8 border border-white/5">
-                            <div className="mb-6 flex items-center justify-between">
-                                <h2 className="text-xl font-bold text-white flex items-center gap-3">
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-600/20 text-purple-400">
-                                        <FaImage />
-                                    </div>
-                                    Input Source
+                    <div className="lg:col-span-4 space-y-6 animate-fade-in">
+                        <section className="rounded-2xl border border-line bg-card p-6">
+                            <div className="mb-5 flex items-center justify-between">
+                                <h2 className="font-semibold flex items-center gap-2.5">
+                                    <FaImage className="text-brand" />
+                                    Photo
                                 </h2>
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-4 text-sm">
                                     <button
                                         onClick={() => setIsCameraOpen(true)}
-                                        className="flex items-center gap-2 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors uppercase tracking-wider"
+                                        className="flex items-center gap-1.5 font-medium text-brand hover:underline underline-offset-2 cursor-pointer"
                                     >
-                                        <FaCamera /> Camera
+                                        <FaCamera className="text-xs" /> Use camera
                                     </button>
                                     {selectedImage && (
                                         <button
                                             onClick={() => { setSelectedImage(null); setResult(""); }}
-                                            className="text-xs font-medium text-zinc-500 hover:text-white transition-colors"
+                                            className="text-muted hover:text-ink transition-colors cursor-pointer"
                                         >
-                                            CLEAR
+                                            Clear
                                         </button>
                                     )}
                                 </div>
@@ -169,40 +167,36 @@ export default function Analyzer({ onBack }: { onBack?: () => void }) {
                             <ImageInput onSelect={analyze} />
 
                             {selectedImage && (
-                                <div className="mt-6 h-[380px] w-[380px] max-w-full mx-auto relative group overflow-hidden rounded-2xl border border-white/10 aspect-square shadow-2xl">
+                                <div className="mt-5 aspect-square w-full overflow-hidden rounded-xl border border-line bg-paper">
                                     <img
                                         src={selectedImage}
                                         alt="Selected piece"
-                                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        className="h-full w-full object-cover"
                                     />
-                                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                    <div className="absolute bottom-4 left-4 text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        Source Image Preview
-                                    </div>
                                 </div>
                             )}
                         </section>
 
-                        <section className="glass-card rounded-2xl p-8">
-                            <div className="mb-6 flex items-center justify-between">
-                                <h3 className="text-lg font-bold text-white flex items-center gap-3">
-                                    <FaHistory className="text-purple-400" />
-                                    Recent Analyses
+                        <section className="rounded-2xl border border-line bg-card p-6">
+                            <div className="mb-4 flex items-center justify-between">
+                                <h3 className="font-semibold flex items-center gap-2.5">
+                                    <FaHistory className="text-brand" />
+                                    Recent analyses
                                 </h3>
                                 {history.length > 0 && (
                                     <button
                                         onClick={clearHistory}
-                                        className="text-[10px] uppercase tracking-wider text-zinc-600 hover:text-red-400 transition-colors"
+                                        className="text-xs text-muted hover:text-red-700 transition-colors cursor-pointer"
                                     >
-                                        Clear All
+                                        Clear all
                                     </button>
                                 )}
                             </div>
 
                             {history.length === 0 ? (
-                                <p className="text-sm text-zinc-600 italic text-center py-4">No recent history</p>
+                                <p className="text-sm text-muted py-4 text-center">No recent history</p>
                             ) : (
-                                <div className="space-y-4 h-40 overflow-y-auto">
+                                <div className="max-h-64 space-y-2 overflow-y-auto">
                                     {history.map((item) => (
                                         <button
                                             key={item.id}
@@ -211,14 +205,14 @@ export default function Analyzer({ onBack }: { onBack?: () => void }) {
                                                 setResult(item.result)
                                                 setAnalysisMetadata(item.metadata)
                                             }}
-                                            className="w-full flex items-center gap-4 p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all text-left group"
+                                            className="w-full flex items-center gap-3 rounded-xl border border-transparent p-2 text-left hover:border-line hover:bg-paper transition-colors cursor-pointer"
                                         >
-                                            <div className="h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-white/10">
+                                            <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-line">
                                                 <img src={item.image} alt="History" className="h-full w-full object-cover" />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-xs font-semibold text-zinc-300 truncate">Analysis {item.date}</p>
-                                                <p className="text-[10px] text-zinc-500">Click to view report</p>
+                                                <p className="text-sm font-medium truncate">Analysis {item.date}</p>
+                                                <p className="text-xs text-muted">View report</p>
                                             </div>
                                         </button>
                                     ))}
@@ -228,84 +222,71 @@ export default function Analyzer({ onBack }: { onBack?: () => void }) {
                     </div>
 
                     {/* Right Column: Results (8 cols) */}
-                    <div className="lg:col-span-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                        <div className="glass min-h-[760px] rounded-2xl p-8 border border-white/5 relative overflow-hidden">
-                            {/* Decorative background glow */}
-                            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-purple-600/5 blur-[100px]" />
-
-                            <div className="relative z-10">
-                                <div className="mb-10 flex pb-4 border-b border-white/5 items-center justify-between">
-                                    <h2 className="text-2xl font-bold text-white flex items-center gap-4">
-                                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-600/20 text-cyan-400">
-                                            <FaMagic />
-                                        </div>
-                                        Analysis Report
-                                    </h2>
-                                    <div className="flex items-center gap-3">
-                                        {result && (
-                                            <>
-                                                <button
-                                                    onClick={() => { setSelectedImage(null); setResult(""); }}
-                                                    className="flex items-center gap-2 rounded-xl bg-purple-600/20 px-4 py-2 text-sm font-medium text-purple-400 hover:bg-purple-600/30 transition-all border border-purple-500/20"
-                                                >
-                                                    <FaImage className="text-xs" /> New Analysis
-                                                </button>
-                                                <button
-                                                    onClick={handleExportPDF}
-                                                    disabled={isGeneratingPDF}
-                                                    className="flex items-center gap-2 rounded-xl bg-white/5 px-4 py-2 text-sm font-medium text-zinc-300 hover:bg-white/10 hover:text-white transition-all border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
-                                                >
-                                                    {isGeneratingPDF ? (
-                                                        <>
-                                                            <div className="h-3 w-3 animate-spin rounded-full border-2 border-zinc-400 border-t-white" />
-                                                            Generating...
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <FaDownload className="text-xs" /> Export PDF
-                                                        </>
-                                                    )}
-                                                </button>
-                                            </>
-                                        )}
-                                    </div>
+                    <div className="lg:col-span-8 animate-fade-in">
+                        <div className="min-h-[640px] rounded-2xl border border-line bg-card p-6 md:p-8">
+                            <div className="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-line pb-5">
+                                <h2 className="font-serif text-3xl tracking-tight">
+                                    Analysis report
+                                </h2>
+                                <div className="flex items-center gap-2">
+                                    {result && (
+                                        <>
+                                            <button
+                                                onClick={() => { setSelectedImage(null); setResult(""); }}
+                                                className="btn-outline h-9 px-4 text-sm cursor-pointer"
+                                            >
+                                                <FaImage className="text-xs" /> New analysis
+                                            </button>
+                                            <button
+                                                onClick={handleExportPDF}
+                                                disabled={isGeneratingPDF}
+                                                className="btn-primary h-9 px-4 text-sm cursor-pointer"
+                                            >
+                                                {isGeneratingPDF ? (
+                                                    <>
+                                                        <div className="h-3 w-3 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                                                        Generating...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <FaDownload className="text-xs" /> Export PDF
+                                                    </>
+                                                )}
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
-
-                                {!loading && !result && (
-                                    <div className="flex h-[450px] flex-col items-center justify-center text-center">
-                                        <div className="mb-8 rounded-4xl bg-white/5 p-10 border border-white/5 animate-float">
-                                            <svg className="h-16 w-16 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                                            </svg>
-                                        </div>
-                                        <h3 className="text-xl font-semibold text-zinc-400 mb-2">Awaiting Input</h3>
-                                        <p className="text-zinc-600 max-w-xs">Upload a jewellery image to begin the automated appraisal process.</p>
-                                    </div>
-                                )}
-
-                                {loading && (
-                                    <div className="flex h-[450px] flex-col items-center justify-center">
-                                        <div className="relative">
-                                            <Spinner />
-                                            <div className="absolute inset-0 animate-ping rounded-full bg-purple-500/20" />
-                                        </div>
-                                        <p className="mt-10 text-lg font-medium text-purple-400 animate-pulse">
-                                            Synthesizing Visual Data...
-                                        </p>
-                                    </div>
-                                )}
-
-                                {result && (
-                                    <div className="animate-fade-in space-y-6">
-                                        <AnalysisResult
-                                            content={result}
-                                            metadata={{
-                                                confidence: analysisMetadata?.confidenceScore >= 0.85 ? 'High' : analysisMetadata?.confidenceScore >= 0.6 ? 'Medium' : 'Low'
-                                            }}
-                                        />
-                                    </div>
-                                )}
                             </div>
+
+                            {!loading && !result && (
+                                <div className="flex h-[420px] flex-col items-center justify-center text-center">
+                                    <span className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-brand-soft text-brand">
+                                        <FaGem className="text-xl" />
+                                    </span>
+                                    <h3 className="font-serif text-2xl">Awaiting a photo</h3>
+                                    <p className="mt-2 max-w-xs text-sm text-muted">Add a jewellery image to start the appraisal. Your report will appear here.</p>
+                                </div>
+                            )}
+
+                            {loading && (
+                                <div className="flex h-[420px] flex-col items-center justify-center">
+                                    <Spinner />
+                                    <p className="mt-6 text-sm text-muted">
+                                        Examining the piece...
+                                    </p>
+                                </div>
+                            )}
+
+                            {result && (
+                                <div className="animate-fade-in space-y-6">
+                                    <AnalysisResult
+                                        content={result}
+                                        metadata={{
+                                            confidence: analysisMetadata?.confidenceScore >= 0.85 ? 'High' : analysisMetadata?.confidenceScore >= 0.6 ? 'Medium' : 'Low'
+                                        }}
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

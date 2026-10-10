@@ -23,10 +23,10 @@ export default function AnalysisResult({
             <div className="mb-6 flex flex-wrap items-center gap-4">
                 {metadata?.confidence && (
                     <div className="flex items-center gap-2">
-                        <span className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Confidence Level:</span>
-                        <span className={`text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${metadata.confidence === 'High' ? 'bg-green-500/10 text-green-400 border border-green-500/20' :
-                                metadata.confidence === 'Medium' ? 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20' :
-                                    'bg-red-500/10 text-red-400 border border-red-500/20'
+                        <span className="text-xs text-muted">Confidence:</span>
+                        <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${metadata.confidence === 'High' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' :
+                                metadata.confidence === 'Medium' ? 'bg-amber-50 text-amber-800 border border-amber-200' :
+                                    'bg-red-50 text-red-800 border border-red-200'
                             }`}>
                             {metadata.confidence}
                         </span>
@@ -35,10 +35,10 @@ export default function AnalysisResult({
 
                 {metadata?.verification?.isVerified && (
                     <div className="flex items-center gap-2">
-                        <span className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Verified By:</span>
+                        <span className="text-xs text-muted">Verified by:</span>
                         <div className="flex flex-wrap gap-1">
                             {metadata.verification.sources.map((source, idx) => (
-                                <span key={idx} className="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                                <span key={idx} className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-brand-soft text-brand border border-brand/20">
                                     {source}
                                 </span>
                             ))}
@@ -46,40 +46,40 @@ export default function AnalysisResult({
                     </div>
                 )}
             </div>
-            <div className="space-y-8 text-zinc-300 leading-relaxed">
+            <div className="space-y-8 text-ink leading-relaxed">
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
                         h1: ({ children }) => (
-                            <h1 className="text-3xl font-black text-white print:text-zinc-900 mb-6 flex items-center gap-3 border-b border-white/5 print:border-zinc-200 pb-4">
-                                <span className="h-2 w-2 rounded-full bg-purple-500" />
+                            <h1 className="font-serif text-4xl text-ink mb-6 flex items-center gap-3 border-b border-line pb-4">
+                                <span className="h-2 w-2 rounded-full bg-brand" />
                                 {children}
                             </h1>
                         ),
                         h2: ({ children }) => {
                             const text = String(children).toLowerCase()
-                            let icon = <FaInfoCircle className="text-cyan-400" />
+                            let icon = <FaInfoCircle className="text-brand" />
 
-                            if (text.includes('market')) icon = <FaChartLine className="text-purple-400" />
-                            if (text.includes('product')) icon = <FaGem className="text-cyan-400" />
-                            if (text.includes('value')) icon = <FaChartLine className="text-green-400" />
-                            if (text.includes('business')) icon = <FaListUl className="text-yellow-400" />
+                            if (text.includes('market')) icon = <FaChartLine className="text-brand" />
+                            if (text.includes('product')) icon = <FaGem className="text-brand" />
+                            if (text.includes('value')) icon = <FaChartLine className="text-brand" />
+                            if (text.includes('business')) icon = <FaListUl className="text-gold" />
 
                             return (
-                                <h2 className="text-xl font-bold text-white print:text-zinc-900 mb-6 flex items-center gap-3 bg-white/5 print:bg-zinc-50 w-fit px-6 py-2 rounded-xl border border-white/5 print:border-zinc-200">
+                                <h2 className="text-lg font-semibold text-ink mb-5 flex items-center gap-3 bg-paper w-fit px-4 py-2 rounded-lg border border-line">
                                     <span className="print:hidden">{icon}</span>
                                     {children}
                                 </h2>
                             )
                         },
                         h3: ({ children }) => (
-                            <h3 className="text-lg font-bold text-zinc-100 print:text-zinc-800 mt-8 mb-4 flex items-center gap-2">
-                                <div className="h-1 w-4 rounded-full bg-linear-to-r from-purple-500 to-cyan-500 print:bg-purple-500" />
+                            <h3 className="text-base font-semibold text-ink mt-8 mb-3 flex items-center gap-2">
+                                <div className="h-0.5 w-4 rounded-full bg-gold" />
                                 {children}
                             </h3>
                         ),
                         p: ({ children }) => (
-                            <p className="text-zinc-400 print:text-zinc-600 mb-4 leading-relaxed text-sm md:text-base">
+                            <p className="text-muted mb-4 leading-relaxed text-sm md:text-base">
                                 {children}
                             </p>
                         ),
@@ -90,38 +90,38 @@ export default function AnalysisResult({
                         ),
                         li: ({ children }) => (
                             <li className="flex items-start gap-3">
-                                <span className="text-sm text-zinc-400 print:text-zinc-600">{children}</span>
+                                <span className="text-sm text-muted">{children}</span>
                             </li>
                         ),
                         table: ({ children }) => (
-                            <div className="my-8 overflow-hidden rounded-xl border border-white/10 print:border-zinc-200 bg-white/2 print:bg-white shadow-2xl print:shadow-none">
-                                <table className="w-full text-left text-sm">
+                            <div className="my-6 overflow-hidden rounded-xl border border-line bg-card">
+                                <table className="w-full text-left text-sm [&_tr:last-child_td]:border-b-0">
                                     {children}
                                 </table>
                             </div>
                         ),
                         thead: ({ children }) => (
-                            <thead className="bg-white/5 print:bg-zinc-100 text-zinc-300 print:text-zinc-700 uppercase text-[10px] tracking-widest font-bold">
+                            <thead className="bg-paper text-muted text-xs font-medium">
                                 {children}
                             </thead>
                         ),
                         th: ({ children }) => (
-                            <th className="px-6 py-4 border-b border-white/10 print:border-zinc-200">
+                            <th className="px-5 py-3 border-b border-line">
                                 {children}
                             </th>
                         ),
                         td: ({ children }) => (
-                            <td className="px-6 py-4 border-b border-white/5 print:border-zinc-100 text-zinc-400 print:text-zinc-600">
+                            <td className="px-5 py-3 border-b border-line text-ink">
                                 {children}
                             </td>
                         ),
                         strong: ({ children }) => (
-                            <strong className="font-bold text-zinc-200 print:text-zinc-900">
+                            <strong className="font-semibold text-ink">
                                 {children}
                             </strong>
                         ),
                         blockquote: ({ children }) => (
-                            <blockquote className="border-l-4 border-purple-500 bg-purple-500/5 print:bg-zinc-50 p-6 rounded-r-3xl italic text-zinc-300 print:text-zinc-700 my-8">
+                            <blockquote className="border-l-2 border-gold bg-paper p-5 rounded-r-lg text-ink my-6">
                                 {children}
                             </blockquote>
                         )

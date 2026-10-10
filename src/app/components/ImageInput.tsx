@@ -23,7 +23,7 @@ export default function ImageInput({
 
     return (
         <div
-            className={`relative group cursor-pointer overflow-hidden rounded-2xl border-2 border-dashed transition-all duration-300 ${isDragging ? 'border-purple-500 bg-purple-500/10 scale-[0.99]' : 'border-white/10 hover:border-purple-500/50 hover:bg-white/5'
+            className={`relative group cursor-pointer rounded-xl border border-dashed transition-colors ${isDragging ? 'border-brand bg-brand-soft' : 'border-[#cfc8b9] bg-paper hover:border-brand hover:bg-brand-soft/50'
                 }`}
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={() => setIsDragging(false)}
@@ -39,31 +39,23 @@ export default function ImageInput({
                 type="file"
                 accept="image/*"
                 capture="environment"
+                aria-label="Upload jewellery image"
                 className="absolute inset-0 z-20 cursor-pointer opacity-0"
                 onChange={(e) =>
                     e.target.files && handleFile(e.target.files[0])
                 }
             />
 
-            <div className="flex items-center justify-center pt-16 p-6 text-center">
-                <div className="relative mb-6">
-                    <div className="absolute inset-0 animate-ping rounded-full bg-purple-500/20" />
-                    <div className="relative rounded-2xl bg-purple-600/20 p-5 transition-transform group-hover:scale-110 group-hover:rotate-3">
-                        <FaCloudUploadAlt className="h-6 w-6 text-purple-400" />
-                    </div>
-                </div>
-                <div className="flex flex-col items-center">
-
-                <h3 className="text-lg font-bold text-white mb-2">Upload Jewellery Image</h3>
-                <p className="text-sm text-zinc-500">
+            <div className="flex flex-col items-center px-6 py-10 text-center">
+                <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-card border border-line text-brand">
+                    <FaCloudUploadAlt className="h-5 w-5" />
+                </span>
+                <h3 className="font-semibold">Upload a jewellery image</h3>
+                <p className="mt-1 text-sm text-muted">
                     Drag and drop or click to browse. Camera supported on mobile.
                 </p>
-                <div className="mt-3 flex items-center gap-2 rounded-full bg-white/5 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-400 border border-white/5">
-                    JPG • PNG • WEBP
-                </div>
-                </div>
+                <p className="mt-3 text-xs text-muted">JPG, PNG or WEBP</p>
             </div>
         </div>
     )
 }
-
