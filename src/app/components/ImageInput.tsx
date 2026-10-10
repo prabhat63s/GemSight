@@ -4,9 +4,11 @@ import { useState } from "react"
 import { FaCloudUploadAlt } from "react-icons/fa"
 
 export default function ImageInput({
-    onSelect
+    onSelect,
+    compact = false
 }: {
     onSelect: (base64: string) => void
+    compact?: boolean
 }) {
     const [isDragging, setIsDragging] = useState(false)
 
@@ -46,16 +48,23 @@ export default function ImageInput({
                 }
             />
 
-            <div className="flex flex-col items-center px-6 py-10 text-center">
-                <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-card border border-line text-brand">
-                    <FaCloudUploadAlt className="h-5 w-5" />
-                </span>
-                <h3 className="font-semibold">Upload a jewellery image</h3>
-                <p className="mt-1 text-sm text-muted">
-                    Drag and drop or click to browse. Camera supported on mobile.
-                </p>
-                <p className="mt-3 text-xs text-muted">JPG, PNG or WEBP</p>
-            </div>
+            {compact ? (
+                <div className="flex items-center justify-center gap-2 px-4 py-3 text-sm text-muted">
+                    <FaCloudUploadAlt className="text-brand" />
+                    Drop a new photo or <span className="font-medium text-ink underline underline-offset-2">browse</span>
+                </div>
+            ) : (
+                <div className="flex flex-col items-center px-6 py-12 text-center">
+                    <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-card border border-line text-brand">
+                        <FaCloudUploadAlt className="h-5 w-5" />
+                    </span>
+                    <h3 className="font-semibold">Upload a jewellery image</h3>
+                    <p className="mt-1 text-sm text-muted">
+                        Drag and drop or click to browse. Camera supported on mobile.
+                    </p>
+                    <p className="mt-3 text-xs text-muted">JPG, PNG or WEBP</p>
+                </div>
+            )}
         </div>
     )
 }

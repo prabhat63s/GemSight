@@ -51,27 +51,14 @@ export default function AnalysisResult({
                     remarkPlugins={[remarkGfm]}
                     components={{
                         h1: ({ children }) => (
-                            <h1 className="font-serif text-4xl text-ink mb-6 flex items-center gap-3 border-b border-line pb-4">
-                                <span className="h-2 w-2 rounded-full bg-brand" />
-                                {children}
-                            </h1>
+                            <h1 className="font-serif text-4xl leading-tight text-ink md:text-5xl mb-2">{children}</h1>
                         ),
-                        h2: ({ children }) => {
-                            const text = String(children).toLowerCase()
-                            let icon = <FaInfoCircle className="text-brand" />
-
-                            if (text.includes('market')) icon = <FaChartLine className="text-brand" />
-                            if (text.includes('product')) icon = <FaGem className="text-brand" />
-                            if (text.includes('value')) icon = <FaChartLine className="text-brand" />
-                            if (text.includes('business')) icon = <FaListUl className="text-gold" />
-
-                            return (
-                                <h2 className="text-lg font-semibold text-ink mb-5 flex items-center gap-3 bg-paper w-fit px-4 py-2 rounded-lg border border-line">
-                                    <span className="print:hidden">{icon}</span>
-                                    {children}
-                                </h2>
-                            )
-                        },
+                        h2: ({ children }) => (
+                            <h2 className="mt-10 mb-4 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
+                                <span className="shrink-0">{children}</span>
+                                <span className="h-px flex-1 bg-line" aria-hidden />
+                            </h2>
+                        ),
                         h3: ({ children }) => (
                             <h3 className="text-base font-semibold text-ink mt-8 mb-3 flex items-center gap-2">
                                 <div className="h-0.5 w-4 rounded-full bg-gold" />
@@ -79,18 +66,19 @@ export default function AnalysisResult({
                             </h3>
                         ),
                         p: ({ children }) => (
-                            <p className="text-muted mb-4 leading-relaxed text-sm md:text-base">
+                            <p className="text-ink/80 mb-3 leading-relaxed text-sm md:text-base">
                                 {children}
                             </p>
                         ),
                         ul: ({ children }) => (
-                            <ul className="flex flex-col gap-3 my-6">
+                            <ul className="flex flex-col gap-2.5 my-4">
                                 {children}
                             </ul>
                         ),
                         li: ({ children }) => (
                             <li className="flex items-start gap-3">
-                                <span className="text-sm text-muted">{children}</span>
+                                <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gold" aria-hidden />
+                                <span className="text-sm text-ink/80">{children}</span>
                             </li>
                         ),
                         table: ({ children }) => (
@@ -121,7 +109,7 @@ export default function AnalysisResult({
                             </strong>
                         ),
                         blockquote: ({ children }) => (
-                            <blockquote className="border-l-2 border-gold bg-paper p-5 rounded-r-lg text-ink my-6">
+                            <blockquote className="mt-8 border-t border-line pt-4 text-sm italic text-muted">
                                 {children}
                             </blockquote>
                         )
