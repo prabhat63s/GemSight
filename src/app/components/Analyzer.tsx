@@ -115,7 +115,7 @@ export default function Analyzer({ onBack }: { onBack?: () => void }) {
     }
 
     return (
-        <div className="mx-auto w-full max-w-7xl px-6 py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 py-10 md:py-14">
             <div>
                 {/* Back Button */}
                 {onBack && (

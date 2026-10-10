@@ -12,7 +12,7 @@ export default function Home() {
     <div className="flex min-h-screen w-full flex-col bg-paper text-ink">
       {/* header */}
       <header className="border-b border-line">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+        <div className="mx-auto flex h-16 items-center justify-between px-6 md:px-10">
           <button
             onClick={() => setView('landing')}
             className="flex items-center gap-2.5 cursor-pointer"
@@ -40,7 +40,7 @@ export default function Home() {
 
       {/* footer */}
       <footer className="border-t border-line">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-6 py-6 text-sm text-muted">
+        <div className="mx-auto flex flex-wrap items-center justify-between gap-2 px-6 md:px-10 py-6 text-sm text-muted">
           <span className="font-serif text-lg text-ink">GemSight</span>
           <p>
             &copy; {new Date().getFullYear()}{" "}

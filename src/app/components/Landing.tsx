@@ -61,7 +61,7 @@ export default function Landing({ onStart }: { onStart: () => void }) {
     return (
         <div>
             {/* hero */}
-            <section className="mx-auto grid max-w-7xl items-center gap-14 px-6 py-16 pb-24 md:py-24 md:pb-28 lg:grid-cols-2">
+            <section className="mx-auto grid items-center gap-14 px-6 md:px-10 py-16 pb-24 md:py-24 md:pb-28 lg:grid-cols-2">
                 <div className="animate-fade-in">
                     <p className="mb-6 text-sm font-medium tracking-wide text-brand">AI jewellery appraisal</p>
                     <h1 className="font-serif text-6xl leading-[1.02] tracking-tight md:text-8xl">
@@ -124,7 +124,7 @@ export default function Landing({ onStart }: { onStart: () => void }) {
 
             {/* trust strip */}
             <section className="border-b border-line bg-card">
-                <ul className="mx-auto flex max-w-7xl flex-wrap justify-between gap-x-8 gap-y-3 px-6 py-5 text-sm text-muted">
+                <ul className="mx-auto flex flex-wrap justify-between gap-x-8 gap-y-3 px-6 md:px-10 py-5 text-sm text-muted">
                     {TRUST.map((t) => (
                         <li key={t} className="flex items-center gap-2">
                             <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
@@ -135,7 +135,7 @@ export default function Landing({ onStart }: { onStart: () => void }) {
             </section>
 
             {/* details */}
-            <section className="mx-auto max-w-7xl px-6 py-20">
+            <section className="w-full px-6 md:px-10 py-20">
                 <div className="max-w-2xl">
                     <h2 className="font-serif text-4xl tracking-tight md:text-5xl">It looks where an appraiser looks.</h2>
                     <p className="mt-4 text-muted">
@@ -155,7 +155,7 @@ export default function Landing({ onStart }: { onStart: () => void }) {
 
             {/* how it works */}
             <section id="how-it-works" className="scroll-mt-4 border-y border-line bg-card">
-                <div className="mx-auto max-w-7xl px-6 py-20">
+                <div className="w-full px-6 md:px-10 py-20">
                     <h2 className="font-serif text-4xl tracking-tight md:text-5xl">From photo to certificate.</h2>
                     <ol className="mt-12 grid gap-12 md:grid-cols-3">
                         {STEPS.map((step, i) => (
@@ -173,7 +173,7 @@ export default function Landing({ onStart }: { onStart: () => void }) {
             </section>
 
             {/* features */}
-            <section className="mx-auto max-w-7xl px-6 py-20">
+            <section className="w-full px-6 md:px-10 py-20">
                 <h2 className="font-serif text-4xl tracking-tight md:text-5xl">Built for the showroom floor.</h2>
                 <p className="mt-4 max-w-2xl text-muted">
                     Bring consistency, clarity, and craftsmanship into your jewellery catalog, from design
@@ -194,7 +194,7 @@ export default function Landing({ onStart }: { onStart: () => void }) {
 
             {/* closing call to action */}
             <section className="bg-brand text-white">
-                <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 py-16 md:flex-row md:items-center">
+                <div className="mx-auto flex flex-col items-start justify-between gap-6 px-6 md:px-10 py-16 md:flex-row md:items-center">
                     <h2 className="max-w-xl font-serif text-4xl leading-tight tracking-tight md:text-5xl">
                         Appraise your first piece in under a minute.
                     </h2>
