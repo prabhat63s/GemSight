@@ -279,6 +279,15 @@ export default function Analyzer({ onBack }: { onBack?: () => void }) {
 
                             {result && (
                                 <div className="animate-fade-in space-y-6">
+                                    {selectedImage && (
+                                        <div className="flex items-center gap-4 rounded-xl bg-paper p-4">
+                                            <img src={selectedImage} alt="Appraised piece" className="h-20 w-20 shrink-0 rounded-lg border border-line object-cover" />
+                                            <div className="min-w-0">
+                                                <p className="font-serif text-xl leading-tight">Prepared by GemSight</p>
+                                                <p className="mt-1 text-sm text-muted">{new Date().toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" })}</p>
+                                            </div>
+                                        </div>
+                                    )}
                                     <AnalysisResult
                                         content={result}
                                         metadata={{
