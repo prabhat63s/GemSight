@@ -1,7 +1,9 @@
-# 💎 AI Jewellery Analysis System
+# 💎 GemSight
+
+**Turn your camera into an expert appraiser.** Using GPT-4o Vision, GemSight identifies fine details and generates professional, certificate-ready PDF reports instantly.
 
 
-A premium, expert-level jewellery appraisal and metadata generation platform powered by advanced AI. This system provides instant visual intelligence for high-resolution jewellery images, thinking like a senior showroom merchandiser.
+GemSight is a premium, expert-level jewellery appraisal and metadata generation platform powered by advanced AI. This system provides instant visual intelligence for high-resolution jewellery images, thinking like a senior showroom merchandiser.
 
 
 ## ✨ Key Features
@@ -17,7 +19,7 @@ A premium, expert-level jewellery appraisal and metadata generation platform pow
   - Business-ready market insights.
 - **📜 Analysis History**: Local persistence of the last 5 analyses, including full reports and confidence metadata.
 - **🎨 Premium UI/UX**:
-  - Animated mesh backgrounds and glassmorphism.
+  - Clean light theme with a serif display face and an emerald accent.
   - Responsive layout optimized for both desktop and mobile field use.
 
 ## 🧠 How It Works
@@ -43,8 +45,8 @@ The system doesn't just "see" an image; it analyzes it through the lens of a **S
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd ai-jewellery-analysis
+git clone https://github.com/prabhat63s/GemSight.git
+cd GemSight
 ```
 
 ### 2. Install dependencies

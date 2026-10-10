@@ -64,17 +64,17 @@ export default function CameraModal({
     }
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 animate-fade-in">
-            <div className="relative w-full max-w-2xl overflow-hidden rounded-[2.5rem] bg-[#0e1117] border border-white/10 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-4 animate-fade-in">
+            <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl bg-card border border-line shadow-2xl">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-white/5">
-                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
-                        <FaCamera className="text-purple-400" />
+                <div className="flex items-center justify-between px-6 py-4 border-b border-line">
+                    <h3 className="font-serif text-2xl flex items-center gap-3">
+                        <FaCamera className="text-brand text-base" />
                         Capture Jewellery
                     </h3>
                     <button
                         onClick={onClose}
-                        className="rounded-full bg-white/5 p-2 text-zinc-400 hover:bg-white/10 hover:text-white transition-all"
+                        className="rounded-full p-2 text-muted hover:bg-paper hover:text-ink transition-colors"
                     >
                         <FaTimes />
                     </button>
@@ -84,10 +84,10 @@ export default function CameraModal({
                 <div className="relative aspect-video bg-black flex items-center justify-center">
                     {error ? (
                         <div className="p-8 text-center">
-                            <p className="text-red-400 mb-4">{error}</p>
+                            <p className="text-red-300 mb-4">{error}</p>
                             <button
                                 onClick={startCamera}
-                                className="rounded-xl bg-white/5 px-6 py-2 text-sm font-medium text-white hover:bg-white/10 transition-all"
+                                className="rounded-full bg-white/10 px-6 py-2 text-sm font-medium text-white hover:bg-white/20 transition-colors"
                             >
                                 Try Again
                             </button>
@@ -115,8 +115,8 @@ export default function CameraModal({
                 <div className="p-8 flex items-center justify-center gap-8">
                     <button
                         onClick={toggleCamera}
-                        className="flex h-12 w-12 items-center justify-center rounded-full bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white transition-all"
-                        title="Switch Camera"
+                        className="flex h-12 w-12 items-center justify-center rounded-full border border-line text-muted hover:bg-paper hover:text-ink transition-colors"
+                        title="Switch Camera" aria-label="Switch camera"
                     >
                         <FaSync />
                     </button>
@@ -124,10 +124,10 @@ export default function CameraModal({
                     <button
                         onClick={capturePhoto}
                         disabled={!!error}
-                        className="group relative flex h-20 w-20 items-center justify-center rounded-full bg-white p-1 shadow-2xl transition-transform active:scale-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="group relative flex h-20 w-20 items-center justify-center rounded-full bg-card p-1 border border-line shadow-lg transition-transform active:scale-90 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        <div className="h-full w-full rounded-full border-4 border-black/10 flex items-center justify-center">
-                            <div className="h-14 w-14 rounded-full bg-linear-to-tr from-purple-600 to-cyan-600 transition-transform group-hover:scale-110" />
+                        <div className="h-full w-full rounded-full border-4 border-brand/20 flex items-center justify-center">
+                            <div className="h-14 w-14 rounded-full bg-brand transition-transform group-hover:scale-105" />
                         </div>
                     </button>
 
@@ -135,7 +135,7 @@ export default function CameraModal({
                 </div>
 
                 <div className="pb-6 text-center">
-                    <p className="text-xs text-zinc-500">Position the jewellery piece within the center circle for best results.</p>
+                    <p className="text-xs text-muted">Position the jewellery piece within the center circle for best results.</p>
                 </div>
             </div>
         </div>

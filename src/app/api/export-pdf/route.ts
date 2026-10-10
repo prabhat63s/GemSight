@@ -45,21 +45,21 @@ export async function POST(req: NextRequest) {
         doc.setTextColor(255, 255, 255);
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(14);
-        doc.text('P', margin + 9, 27, { align: 'center' });
+        doc.text('G', margin + 9, 27, { align: 'center' });
 
         // Brand Name
         doc.setTextColor(24, 24, 27);
         doc.setFontSize(22);
         doc.setFont('helvetica', 'bold');
-        doc.text('P', margin + 24, 24);
+        doc.text('Gem', margin + 24, 24);
 
-        doc.setTextColor(147, 51, 234); // #9333ea
-        doc.text('S', margin + 42, 24);
+        doc.setTextColor(15, 92, 74); // #0f5c4a
+        doc.text('Sight', margin + 24 + doc.getTextWidth('Gem'), 24);
 
         doc.setTextColor(161, 161, 170); // #a1a1aa
         doc.setFontSize(8);
         doc.setFont('helvetica', 'normal');
-        doc.text('AI JEWELLERY ANALYSIS SYSTEM', margin + 24, 30, { charSpace: 1.5 });
+        doc.text('AI JEWELLERY APPRAISAL', margin + 24, 30, { charSpace: 1.5 });
 
         // Report Info (Right side)
         doc.setTextColor(161, 161, 170);
@@ -253,7 +253,7 @@ export async function POST(req: NextRequest) {
         return new NextResponse(pdfOutput, {
             headers: {
                 'Content-Type': 'application/pdf',
-                'Content-Disposition': `attachment; filename=Jewellery-Analysis-${Date.now()}.pdf`,
+                'Content-Disposition': `attachment; filename=GemSight-Report-${Date.now()}.pdf`,
             },
         });
     } catch (error) {
