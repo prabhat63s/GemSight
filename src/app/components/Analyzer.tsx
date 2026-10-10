@@ -5,7 +5,7 @@ import ImageInput from "./ImageInput"
 import Spinner from "./Spinner"
 import AnalysisResult from "./AnalysisResult"
 import CameraModal from "./CameraModal"
-import { FaDownload, FaImage, FaArrowLeft, FaHistory, FaCamera, FaGem } from "react-icons/fa"
+import { FaDownload, FaImage, FaArrowLeft, FaHistory, FaCamera, FaGem, FaTimes } from "react-icons/fa"
 
 interface HistoryItem {
     id: string
@@ -114,180 +114,198 @@ export default function Analyzer({ onBack }: { onBack?: () => void }) {
         }
     }
 
+    const reportDate = new Date().toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" })
+
     return (
-        <div className="w-full px-6 md:px-10 py-10 md:py-14">
-            <div>
-                {/* Back Button */}
-                {onBack && (
-                    <button
-                        onClick={onBack}
-                        className="mb-6 flex items-center gap-2 text-sm text-muted hover:text-ink transition-colors cursor-pointer"
-                    >
-                        <FaArrowLeft className="text-xs" /> Back to home
-                    </button>
-                )}
+        <div className="w-full px-6 md:px-10 py-8 md:py-12">
+            {/* Page heading */}
+            <header className="mb-8 flex flex-wrap items-end justify-between gap-4 animate-fade-in">
+                <div>
+                    {onBack && (
+                        <button
+                            onClick={onBack}
+                            className="mb-4 flex items-center gap-2 text-sm text-muted hover:text-ink transition-colors cursor-pointer"
+                        >
+                            <FaArrowLeft className="text-xs" /> Back to home
+                        </button>
+                    )}
+                    <h1 className="font-serif text-4xl tracking-tight md:text-5xl">New appraisal</h1>
+                </div>
+                <p className="max-w-md text-sm text-muted">
+                    Add a clear photo of the piece. GemSight examines it and prepares a certificate-ready report.
+                </p>
+            </header>
 
-                {/* Header Section */}
-                <header className="mb-10 animate-fade-in">
-                    <h1 className="font-serif text-4xl tracking-tight md:text-5xl">
-                        New appraisal
-                    </h1>
-                    <p className="mt-3 text-muted max-w-2xl">
-                        Upload a clear photo of the piece, or capture one with your camera, to get an expert-level analysis and a certificate-ready report.
-                    </p>
-                </header>
+            <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[380px_minmax(0,1fr)]">
+                {/* Left: photo + history */}
+                <aside className="space-y-6 animate-fade-in lg:sticky lg:top-6">
+                    <section className="rounded-2xl border border-line bg-card p-5">
+                        <div className="mb-4 flex items-center justify-between">
+                            <h2 className="text-sm font-semibold">Photo</h2>
+                            <button
+                                onClick={() => setIsCameraOpen(true)}
+                                className="flex items-center gap-1.5 text-sm font-medium text-brand hover:underline underline-offset-2 cursor-pointer"
+                            >
+                                <FaCamera className="text-xs" /> Use camera
+                            </button>
+                        </div>
 
-                <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
-                    {/* Left Column: Controls & History (4 cols) */}
-                    <div className="lg:col-span-4 space-y-6 animate-fade-in">
-                        <section className="rounded-2xl border border-line bg-card p-6">
-                            <div className="mb-5 flex items-center justify-between">
-                                <h2 className="font-semibold flex items-center gap-2.5">
-                                    <FaImage className="text-brand" />
-                                    Photo
-                                </h2>
-                                <div className="flex items-center gap-4 text-sm">
-                                    <button
-                                        onClick={() => setIsCameraOpen(true)}
-                                        className="flex items-center gap-1.5 font-medium text-brand hover:underline underline-offset-2 cursor-pointer"
-                                    >
-                                        <FaCamera className="text-xs" /> Use camera
-                                    </button>
-                                    {selectedImage && (
-                                        <button
-                                            onClick={() => { setSelectedImage(null); setResult(""); }}
-                                            className="text-muted hover:text-ink transition-colors cursor-pointer"
-                                        >
-                                            Clear
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-
-                            <ImageInput onSelect={analyze} />
-
-                            {selectedImage && (
-                                <div className="mt-5 aspect-square w-full overflow-hidden rounded-xl border border-line bg-paper">
+                        {selectedImage ? (
+                            <div className="space-y-3">
+                                <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-paper">
                                     <img
                                         src={selectedImage}
                                         alt="Selected piece"
                                         className="h-full w-full object-cover"
                                     />
-                                </div>
-                            )}
-                        </section>
-
-                        <section className="rounded-2xl border border-line bg-card p-6">
-                            <div className="mb-4 flex items-center justify-between">
-                                <h3 className="font-semibold flex items-center gap-2.5">
-                                    <FaHistory className="text-brand" />
-                                    Recent analyses
-                                </h3>
-                                {history.length > 0 && (
                                     <button
-                                        onClick={clearHistory}
-                                        className="text-xs text-muted hover:text-red-700 transition-colors cursor-pointer"
+                                        onClick={() => { setSelectedImage(null); setResult(""); }}
+                                        aria-label="Remove photo"
+                                        className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-card/90 text-ink shadow-sm hover:bg-card transition-colors cursor-pointer"
                                     >
-                                        Clear all
+                                        <FaTimes className="text-xs" />
                                     </button>
+                                </div>
+                                <ImageInput onSelect={analyze} compact />
+                            </div>
+                        ) : (
+                            <ImageInput onSelect={analyze} />
+                        )}
+                    </section>
+
+                    <section className="rounded-2xl border border-line bg-card p-5">
+                        <div className="mb-3 flex items-center justify-between">
+                            <h3 className="flex items-center gap-2 text-sm font-semibold">
+                                <FaHistory className="text-xs text-brand" />
+                                Recent analyses
+                            </h3>
+                            {history.length > 0 && (
+                                <button
+                                    onClick={clearHistory}
+                                    className="text-xs text-muted hover:text-red-700 transition-colors cursor-pointer"
+                                >
+                                    Clear all
+                                </button>
+                            )}
+                        </div>
+
+                        {history.length === 0 ? (
+                            <p className="py-3 text-sm text-muted">Your last five analyses will appear here.</p>
+                        ) : (
+                            <div className="-mx-2 max-h-64 space-y-1 overflow-y-auto">
+                                {history.map((item) => (
+                                    <button
+                                        key={item.id}
+                                        onClick={() => {
+                                            setSelectedImage(item.image)
+                                            setResult(item.result)
+                                            setAnalysisMetadata(item.metadata)
+                                        }}
+                                        className="flex w-full items-center gap-3 rounded-lg p-2 text-left hover:bg-paper transition-colors cursor-pointer"
+                                    >
+                                        <div className="h-11 w-11 shrink-0 overflow-hidden rounded-md border border-line">
+                                            <img src={item.image} alt="History" className="h-full w-full object-cover" />
+                                        </div>
+                                        <div className="min-w-0 flex-1">
+                                            <p className="truncate text-sm font-medium">{item.date}</p>
+                                            <p className="text-xs text-muted">View report</p>
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </section>
+                </aside>
+
+                {/* Right: report */}
+                <section className="min-w-0 animate-fade-in">
+                    {result && (
+                        <div className="mb-4 flex flex-wrap items-center justify-end gap-2">
+                            <button
+                                onClick={() => { setSelectedImage(null); setResult(""); }}
+                                className="btn-outline h-9 px-4 text-sm cursor-pointer"
+                            >
+                                <FaImage className="text-xs" /> New analysis
+                            </button>
+                            <button
+                                onClick={handleExportPDF}
+                                disabled={isGeneratingPDF}
+                                className="btn-primary h-9 px-4 text-sm cursor-pointer"
+                            >
+                                {isGeneratingPDF ? (
+                                    <>
+                                        <div className="h-3 w-3 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                                        Generating...
+                                    </>
+                                ) : (
+                                    <>
+                                        <FaDownload className="text-xs" /> Export PDF
+                                    </>
+                                )}
+                            </button>
+                        </div>
+                    )}
+
+                    {/* certificate sheet */}
+                    <article className="relative min-h-[640px] rounded-2xl border border-line bg-card px-6 py-8 shadow-[0_24px_50px_-36px_rgba(28,26,23,0.4)] md:px-14 md:py-12 before:pointer-events-none before:absolute before:inset-3 before:rounded-xl before:border before:border-gold/30 before:content-['']">
+                        <div className="relative">
+                            <div className="flex items-start justify-between gap-6 border-b border-line pb-6">
+                                <div className="flex items-center gap-3">
+                                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand text-white">
+                                        <FaGem className="text-xs" />
+                                    </span>
+                                    <div>
+                                        <p className="font-serif text-2xl leading-none">GemSight</p>
+                                        <p className="mt-1 text-xs uppercase tracking-[0.18em] text-muted">Certificate of appraisal</p>
+                                    </div>
+                                </div>
+                                {result && (
+                                    <div className="flex items-center gap-4 text-right">
+                                        <div>
+                                            <p className="text-xs text-muted">Date</p>
+                                            <p className="text-sm font-medium">{reportDate}</p>
+                                        </div>
+                                        {selectedImage && (
+                                            <img src={selectedImage} alt="Appraised piece" className="h-14 w-14 rounded-lg border border-line object-cover" />
+                                        )}
+                                    </div>
                                 )}
                             </div>
 
-                            {history.length === 0 ? (
-                                <p className="text-sm text-muted py-4 text-center">No recent history</p>
-                            ) : (
-                                <div className="max-h-64 space-y-2 overflow-y-auto">
-                                    {history.map((item) => (
-                                        <button
-                                            key={item.id}
-                                            onClick={() => {
-                                                setSelectedImage(item.image)
-                                                setResult(item.result)
-                                                setAnalysisMetadata(item.metadata)
-                                            }}
-                                            className="w-full flex items-center gap-3 rounded-xl border border-transparent p-2 text-left hover:border-line hover:bg-paper transition-colors cursor-pointer"
-                                        >
-                                            <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-line">
-                                                <img src={item.image} alt="History" className="h-full w-full object-cover" />
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <p className="text-sm font-medium truncate">Analysis {item.date}</p>
-                                                <p className="text-xs text-muted">View report</p>
-                                            </div>
-                                        </button>
-                                    ))}
-                                </div>
-                            )}
-                        </section>
-                    </div>
-
-                    {/* Right Column: Results (8 cols) */}
-                    <div className="lg:col-span-8 animate-fade-in">
-                        <div className="min-h-[640px] rounded-2xl border border-line bg-card p-6 md:p-8">
-                            <div className="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-line pb-5">
-                                <h2 className="font-serif text-3xl tracking-tight">
-                                    Analysis report
-                                </h2>
-                                <div className="flex items-center gap-2">
-                                    {result && (
-                                        <>
-                                            <button
-                                                onClick={() => { setSelectedImage(null); setResult(""); }}
-                                                className="btn-outline h-9 px-4 text-sm cursor-pointer"
-                                            >
-                                                <FaImage className="text-xs" /> New analysis
-                                            </button>
-                                            <button
-                                                onClick={handleExportPDF}
-                                                disabled={isGeneratingPDF}
-                                                className="btn-primary h-9 px-4 text-sm cursor-pointer"
-                                            >
-                                                {isGeneratingPDF ? (
-                                                    <>
-                                                        <div className="h-3 w-3 animate-spin rounded-full border-2 border-white/40 border-t-white" />
-                                                        Generating...
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <FaDownload className="text-xs" /> Export PDF
-                                                    </>
-                                                )}
-                                            </button>
-                                        </>
-                                    )}
-                                </div>
-                            </div>
-
                             {!loading && !result && (
-                                <div className="flex h-[420px] flex-col items-center justify-center text-center">
-                                    <span className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-brand-soft text-brand">
-                                        <FaGem className="text-xl" />
-                                    </span>
-                                    <h3 className="font-serif text-2xl">Awaiting a photo</h3>
-                                    <p className="mt-2 max-w-xs text-sm text-muted">Add a jewellery image to start the appraisal. Your report will appear here.</p>
+                                <div className="pt-10" aria-hidden={false}>
+                                    <div className="space-y-4 opacity-60" aria-hidden>
+                                        <div className="h-8 w-2/3 rounded bg-paper" />
+                                        <div className="h-3 w-1/3 rounded bg-paper" />
+                                        <div className="mt-8 h-3 w-full rounded bg-paper" />
+                                        <div className="h-3 w-11/12 rounded bg-paper" />
+                                        <div className="h-3 w-4/5 rounded bg-paper" />
+                                        <div className="mt-8 h-24 w-full rounded-xl bg-paper" />
+                                    </div>
+                                    <p className="mt-10 text-center font-serif text-2xl">Your report will appear here</p>
+                                    <p className="mt-1 text-center text-sm text-muted">Add a photo to begin the appraisal.</p>
                                 </div>
                             )}
 
                             {loading && (
-                                <div className="flex h-[420px] flex-col items-center justify-center">
-                                    <Spinner />
-                                    <p className="mt-6 text-sm text-muted">
+                                <div className="pt-10">
+                                    <div className="space-y-4 animate-pulse" aria-hidden>
+                                        <div className="h-8 w-2/3 rounded bg-paper" />
+                                        <div className="h-3 w-1/3 rounded bg-paper" />
+                                        <div className="mt-8 h-3 w-full rounded bg-paper" />
+                                        <div className="h-3 w-11/12 rounded bg-paper" />
+                                        <div className="h-3 w-4/5 rounded bg-paper" />
+                                        <div className="mt-8 h-24 w-full rounded-xl bg-paper" />
+                                    </div>
+                                    <div className="mt-10 flex items-center justify-center gap-3 text-sm text-muted" role="status">
+                                        <Spinner />
                                         Examining the piece...
-                                    </p>
+                                    </div>
                                 </div>
                             )}
 
                             {result && (
-                                <div className="animate-fade-in space-y-6">
-                                    {selectedImage && (
-                                        <div className="flex items-center gap-4 rounded-xl bg-paper p-4">
-                                            <img src={selectedImage} alt="Appraised piece" className="h-20 w-20 shrink-0 rounded-lg border border-line object-cover" />
-                                            <div className="min-w-0">
-                                                <p className="font-serif text-xl leading-tight">Prepared by GemSight</p>
-                                                <p className="mt-1 text-sm text-muted">{new Date().toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" })}</p>
-                                            </div>
-                                        </div>
-                                    )}
+                                <div className="animate-fade-in pt-8">
                                     <AnalysisResult
                                         content={result}
                                         metadata={{
@@ -297,8 +315,8 @@ export default function Analyzer({ onBack }: { onBack?: () => void }) {
                                 </div>
                             )}
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </section>
             </div>
 
             {/* Camera Modal */}
