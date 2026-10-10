@@ -21,25 +21,18 @@ const STEPS = [
     },
 ]
 
-// close-up crops of the hero photo (position/zoom are percentages of the image)
 const DETAILS = [
     {
         title: "Setting & construction",
         desc: "Prong, bezel and halo work, metal thickness and finishing quality.",
-        pos: "30% 38%",
-        zoom: 2.4,
     },
     {
         title: "Stone & cut",
         desc: "Stone shape, cut, symmetry and how the stones are arranged across the piece.",
-        pos: "70% 62%",
-        zoom: 2.2,
     },
     {
         title: "Metal & purity",
         desc: "Colour and finish used to estimate gold type and purity.",
-        pos: "22% 28%",
-        zoom: 2.6,
     },
 ]
 
@@ -68,66 +61,62 @@ export default function Landing({ onStart }: { onStart: () => void }) {
     return (
         <div>
             {/* hero */}
-            <section className="relative isolate overflow-hidden bg-ink">
-                <Image
-                    src="/hero-bg.png"
-                    alt=""
-                    fill
-                    priority
-                    className="-z-10 object-cover object-[70%_50%]"
-                />
-                {/* scrim keeps the text readable over the photo */}
-                <div className="absolute inset-0 -z-10 bg-linear-to-r from-ink/90 via-ink/75 to-ink/50 lg:via-ink/60 lg:to-ink/10" />
+            <section className="mx-auto grid max-w-7xl items-center gap-14 px-6 py-16 pb-24 md:py-24 md:pb-28 lg:grid-cols-2">
+                <div className="animate-fade-in">
+                    <p className="mb-6 text-sm font-medium tracking-wide text-brand">AI jewellery appraisal</p>
+                    <h1 className="font-serif text-6xl leading-[1.02] tracking-tight md:text-8xl">
+                        Turn your camera into an expert <em className="text-brand">appraiser.</em>
+                    </h1>
+                    <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted">
+                        Using GPT-4o Vision, GemSight identifies fine details and generates professional,
+                        certificate-ready PDF reports instantly.
+                    </p>
 
-                <div className="mx-auto grid max-w-7xl items-end gap-12 px-6 py-24 md:py-32 lg:min-h-[640px] lg:grid-cols-[1.3fr_1fr]">
-                    <div className="animate-fade-in text-white">
-                        <p className="mb-6 text-sm font-medium tracking-wide text-[#e3c887]">AI jewellery appraisal</p>
-                        <h1 className="font-serif text-6xl leading-[1.02] tracking-tight md:text-8xl">
-                            Turn your camera into an expert <em className="text-[#e3c887]">appraiser.</em>
-                        </h1>
-                        <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/80">
-                            Using GPT-4o Vision, GemSight identifies fine details and generates professional,
-                            certificate-ready PDF reports instantly.
-                        </p>
+                    <div className="mt-10 flex flex-wrap items-center gap-5">
+                        <button onClick={onStart} className="btn-primary h-12 px-7 text-base cursor-pointer">
+                            Analyze a piece
+                            <FaArrowRight className="text-xs" />
+                        </button>
+                        <a href="#how-it-works" className="text-sm text-muted underline underline-offset-4 hover:text-ink">
+                            See how it works
+                        </a>
+                    </div>
+                </div>
 
-                        <div className="mt-10 flex flex-wrap items-center gap-5">
-                            <button
-                                onClick={onStart}
-                                className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-7 text-base font-medium text-ink transition-colors hover:bg-[#f3efe6] cursor-pointer"
-                            >
-                                Analyze a piece
-                                <FaArrowRight className="text-xs" />
-                            </button>
-                            <a href="#how-it-works" className="text-sm text-white/80 underline underline-offset-4 hover:text-white">
-                                See how it works
-                            </a>
-                        </div>
+                {/* square photo with a sample report card */}
+                <div className="relative animate-fade-in" style={{ animationDelay: "0.15s" }}>
+                    <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-line bg-ink shadow-[0_30px_60px_-30px_rgba(28,26,23,0.45)]">
+                        <Image
+                            src="/hero-necklace.jpg"
+                            alt="Diamond necklace on a velvet cushion"
+                            fill
+                            priority
+                            sizes="(min-width: 1024px) 560px, 100vw"
+                            className="object-cover"
+                        />
                     </div>
 
-                    {/* sample report card */}
-                    <div className="hidden lg:block animate-fade-in" style={{ animationDelay: "0.15s" }}>
-                        <div className="ml-auto w-full max-w-sm rounded-2xl bg-card p-6 text-ink shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)]">
-                            <div className="flex items-center justify-between">
-                                <span className="font-serif text-xl">Appraisal report</span>
-                                <span className="rounded-full bg-brand-soft px-2.5 py-0.5 text-xs font-medium text-brand">Sample</span>
-                            </div>
-                            <dl className="mt-5 divide-y divide-line text-sm">
-                                {[
-                                    ["Category", "Necklace"],
-                                    ["Segment", "Bridal / luxury"],
-                                    ["Metal", "18K gold"],
-                                    ["Setting", "Halo, prong-set stones"],
-                                ].map(([k, v]) => (
-                                    <div key={k} className="flex justify-between py-2.5">
-                                        <dt className="text-muted">{k}</dt>
-                                        <dd className="font-medium">{v}</dd>
-                                    </div>
-                                ))}
-                            </dl>
-                            <div className="mt-4 flex items-center gap-2 rounded-lg bg-paper px-3 py-2.5 text-sm">
-                                <FaCheckCircle className="text-brand" />
-                                <span>Confidence: <strong className="font-semibold">High</strong></span>
-                            </div>
+                    <div className="absolute -bottom-8 -right-4 hidden w-64 rounded-2xl bg-card p-5 text-ink shadow-[0_24px_50px_-20px_rgba(0,0,0,0.45)] ring-1 ring-line sm:block">
+                        <div className="flex items-center justify-between">
+                            <span className="font-serif text-xl">Appraisal report</span>
+                            <span className="rounded-full bg-brand-soft px-2.5 py-0.5 text-xs font-medium text-brand">Sample</span>
+                        </div>
+                        <dl className="mt-4 divide-y divide-line text-sm">
+                            {[
+                                ["Category", "Necklace"],
+                                ["Segment", "Bridal / luxury"],
+                                ["Metal", "18K gold"],
+                                ["Setting", "Halo, prong-set"],
+                            ].map(([k, v]) => (
+                                <div key={k} className="flex justify-between py-2">
+                                    <dt className="text-muted">{k}</dt>
+                                    <dd className="font-medium">{v}</dd>
+                                </div>
+                            ))}
+                        </dl>
+                        <div className="mt-3 flex items-center gap-2 rounded-lg bg-paper px-3 py-2 text-sm">
+                            <FaCheckCircle className="text-brand" />
+                            <span>Confidence: <strong className="font-semibold">High</strong></span>
                         </div>
                     </div>
                 </div>
@@ -153,23 +142,13 @@ export default function Landing({ onStart }: { onStart: () => void }) {
                         GemSight inspects the small things that decide a piece&rsquo;s category and value.
                     </p>
                 </div>
-                <div className="mt-12 grid gap-8 md:grid-cols-3">
+                <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
                     {DETAILS.map((d) => (
-                        <figure key={d.title}>
-                            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-ink">
-                                <Image
-                                    src="/hero-bg.png"
-                                    alt={d.title}
-                                    fill
-                                    className="object-cover"
-                                    style={{ objectPosition: d.pos, transform: `scale(${d.zoom})`, transformOrigin: d.pos }}
-                                />
-                            </div>
-                            <figcaption className="mt-4">
-                                <p className="font-semibold">{d.title}</p>
-                                <p className="mt-1 text-sm leading-relaxed text-muted">{d.desc}</p>
-                            </figcaption>
-                        </figure>
+                        <div key={d.title} className="bg-card p-8">
+                            <span className="mb-5 block h-0.5 w-8 bg-gold" aria-hidden />
+                            <p className="font-serif text-2xl">{d.title}</p>
+                            <p className="mt-2 text-sm leading-relaxed text-muted">{d.desc}</p>
+                        </div>
                     ))}
                 </div>
             </section>
